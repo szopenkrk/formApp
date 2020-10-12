@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { axios } from 'axios';
+import * as axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
@@ -33,24 +33,28 @@ export default class App extends Component {
   }
 
   sendData () {
-    if(this.state.allFieldsValidated) {
+  
       axios({
         method: 'post',
-        url: 'localhost:3001/user',
-        headers: {}, 
+        url: 'http://localhost:3001/user/',
+        headers: { 
+          'Content-Type' : 'text/plain' 
+        },
         data: {
-          foo: 'bar',
+          firstName: 'bar',
+          userName: 'asd',
+          password: 'asd',
+          repeat: 'asd',
+          email: 'asd',
         }
       });
-    } else {
-      this.showError();
-    }
+    
   }
   
   render() {
     const { firstName, userName, password, repeat, email, allFieldsValidated } = this.state;
     return (
-      <form>
+      <div>
         <label>
           First Name:
           <input 
@@ -106,7 +110,7 @@ export default class App extends Component {
           />
         </label>
         <input type="submit" value="Wyślij" onClick={this.sendData} />
-      </form>
+      </div>
     )
   }
 };

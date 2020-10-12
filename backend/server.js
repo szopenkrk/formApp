@@ -9,8 +9,8 @@ app.get('/status', (req, res) => {
 
 app.post('/user', (req, res) => {
     const user = req.body;
-    console.log(user);
-    res.send('user endpoint')
+    console.log(req.body);
+    res.json(user);
 });
 
 app.listen(port, () => {
