@@ -15,8 +15,7 @@ export default class App extends Component {
       email: '',
       submited: false,
       complete: false,
-      allFieldsValidated: false,
-      error: false
+      allFieldsValidated: false
     };
   }
 
@@ -26,8 +25,8 @@ export default class App extends Component {
   }
 
   handleChange = (event) => {
-    console.log(event);
-    this.setState({value: event.target.value});
+    console.log(event)
+    // this.setState({[name]: value})
   }
 
   showError () {
@@ -37,18 +36,18 @@ export default class App extends Component {
   sendData = (event) => {
     event.preventDefault();
     if(!this.state.firstName && !this.state.userName && !this.state.password && !this.state.repeat && !this.state.email) {
-      this.setState({error: true})
+      this.showError()
       return null;
     } else {
       axios({
         method: 'post',
         url: 'http://localhost:3001/users',
         data: {
-          firstName: 'bar',
-          userName: 'asd',
-          password: 'asd',
-          repeat: 'asd',
-          email: 'asd',
+          firstName: this.state.firstName,
+          userName: this.state.userName,
+          password: this.state.password,
+          repeat: this.state.repeat,
+          email: this.state.email,
         }
       }).then (() => {
         this.setState({complete: true}) 
@@ -59,7 +58,6 @@ export default class App extends Component {
   
   
   render() {
-    const { firstName, userName, password, repeat, email} = this.state;
     return (
       <div className={styles.container}>
         
@@ -70,7 +68,7 @@ export default class App extends Component {
             <input 
               type="text" 
               name="firstName"  
-              value={firstName}
+              value={this.state.firstName}
               placeholder="First Name"
               onChange={this.handleChange}
             />
@@ -80,7 +78,7 @@ export default class App extends Component {
             <input 
               type="text" 
               name="userName"  
-              value={userName}
+              value={this.state.userName}
               placeholder="User name"
               onChange={this.handleChange}
             />
@@ -90,7 +88,7 @@ export default class App extends Component {
             <input 
               type="text" 
               name="password"  
-              value={password}
+              value={this.state.password}
               placeholder="Your password"
               onChange={this.handleChange}
             />
@@ -100,7 +98,7 @@ export default class App extends Component {
             <input 
               type="text" 
               name="repeat"  
-              value={repeat}
+              value={this.state.repeat}
               placeholder="Repeat your password"
               onChange={this.handleChange}
             />
@@ -110,7 +108,7 @@ export default class App extends Component {
             <input 
               type="text" 
               name="email"  
-              value={email}
+              value={this.state.email}
               placeholder="Email"
               onChange={this.handleChange}
             />
