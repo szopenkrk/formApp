@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import styles from './App.css';
 import ReactDOM from 'react-dom';
 import * as axios from 'axios';
@@ -25,8 +25,15 @@ export default class App extends Component {
   }
 
   handleChange = (event) => {
-    console.log(event)
-    // this.setState({[name]: value})
+    event.preventDefault();
+
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   showError () {
@@ -56,7 +63,6 @@ export default class App extends Component {
     }
   };
   
-  
   render() {
     return (
       <div className={styles.container}>
@@ -70,7 +76,7 @@ export default class App extends Component {
               name="firstName"  
               value={this.state.firstName}
               placeholder="First Name"
-              onChange={this.handleChange}
+              onChange={(event) => this.handleChange(event)}
             />
           </label>
 
@@ -81,6 +87,7 @@ export default class App extends Component {
               value={this.state.userName}
               placeholder="User name"
               onChange={this.handleChange}
+              required
             />
           </label>
 
@@ -91,6 +98,7 @@ export default class App extends Component {
               value={this.state.password}
               placeholder="Your password"
               onChange={this.handleChange}
+              required
             />
           </label>
 
@@ -101,6 +109,7 @@ export default class App extends Component {
               value={this.state.repeat}
               placeholder="Repeat your password"
               onChange={this.handleChange}
+              required
             />
           </label>
 
@@ -111,6 +120,7 @@ export default class App extends Component {
               value={this.state.email}
               placeholder="Email"
               onChange={this.handleChange}
+              required
             />
           </label>
           <input className={styles.sendButton} type="submit" value="Wyślij" onClick={this.sendData} />

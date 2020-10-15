@@ -24,7 +24,7 @@ app.post('/users', function(req, res) {
   var repeat = req.param('repeat');
   var email = req.param('email');
 
-  console.log('User request', firstName, userName, password);
+  console.log('User request', firstName, userName, password, repeat, email);
   res.send(firstName + ' ' + userName + ' ' + password+ ' ' + repeat+ ' ' + email);
 });
 
